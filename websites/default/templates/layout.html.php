@@ -21,8 +21,6 @@
     <main>
         <?=$output?>
     </main>
-    <footer>
-        &copy; IJDB 2025
-    </footer>
+    <?php include __DIR__ . '/footer.html.php'?>
 </body>
 </html>
