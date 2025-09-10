@@ -1,7 +1,7 @@
 <?php
 try {
     $pdo = new PDO('mysql:host=mysql;dbname=ijdb;charset=utf8mb4', 'ijdbuser', 'mypassword');
-    $sql = 'SELECT `id`, `joketext` FROM `joke`';
+    $sql = 'SELECT `joke`.`id`, `joketext`, `name`, `email` FROM `joke` INNER JOIN `author` ON `authorid` = `author`.`id`;';
     $title = 'Joke List';
 
     $jokes = $pdo->query($sql);
