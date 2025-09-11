@@ -7,6 +7,7 @@
             <?=htmlspecialchars($joke['name'], ENT_QUOTES, 'UTF-8')?>
         </a>
         )
+        <a href="editjoke.php?id=<?=$joke['id']?>">Edit</a>
     </p>
    <form action="/delete.php" method="post">
        <input type="hidden" name="jokeId" value="<?=$joke['id']?>" />
