@@ -44,6 +44,9 @@ function updateJoke($pdo, $values) {
     $updateFields = [];
 
     foreach ($values as $key => $value) {
+        if ($value instanceof DateTime) {
+            $values[$key] = $value->format('Y-m-d');
+        }
         $updateFields[] = '`' . $key . '` = :' . $key;
     }
     $query .= implode(', ', $updateFields);
