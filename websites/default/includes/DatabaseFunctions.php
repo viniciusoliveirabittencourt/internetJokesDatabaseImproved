@@ -28,3 +28,8 @@ function updateJoke($pdo, $jokeId, $jokeText, $authorId) {
 
     $stmt->execute($values);
 }
+
+function deleteJoke($pdo, $id) {
+    $stmt = $pdo->prepare('DELETE FROM `joke` WHERE `id` = :id');
+    $stmt->execute([':id' => $id]);
+}

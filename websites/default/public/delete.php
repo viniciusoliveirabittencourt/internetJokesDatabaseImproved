@@ -1,11 +1,9 @@
 <?php
 try {
     include __DIR__ . '/../includes/DatabaseConnection.php';
-    $sql = 'DELETE FROM `joke` WHERE `id` = :jokeId';
+    include __DIR__ . '/../includes/DatabaseFunctions.php';
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':jokeId', $_POST['jokeId']);
-    $stmt->execute();
+    deleteJoke($pdo, $_POST['jokeId']);
 
     header('Location: jokes.php');
 } catch (PDOException $e) {
