@@ -19,6 +19,9 @@ function insertJoke($pdo, $values) {
     $query = 'INSERT INTO `joke` (';
 
     foreach ($values as $key => $value) {
+        if($value instanceof DateTime) {
+            $values[$key] = $value->format('Y-m-d');
+        }
         $query .= '`' . $key . '`,'; // INSERT INTO `joke` (`authorid`, `jokedate`, `joketext`,
     }
     $query = rtrim($query, ','); // INSERT INTO `joke` (`authorid`, `jokedate`, `joketext`
