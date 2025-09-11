@@ -22,10 +22,18 @@ function insertJoke($pdo, $joketext, $authorid) {
     $stmt->execute($values);
 }
 
-function updateJoke($pdo, $jokeId, $jokeText, $authorId) {
-    $stmt = $pdo->prepare('UPDATE `joke` SET `authorid` = :authorId, `joketext` = :jokeText WHERE `id` = :id');
-    $values = ['id' => $jokeId, 'jokeText' => $jokeText, 'authorId' => $authorId];
+function updateJoke($pdo, $values) {
+    $query = 'UPDATE `joke` SET ';
+    $updateFields = [];
 
+    foreach ($values as $key => $value) {
+        $updateFields[] = '`' . $key . '` = :' . $key;
+    }
+    $query .= implode(', ', $updateFields);
+    $query .= ' WHERE `id` = :primarykey';
+    $values['primarykey'] = $values['id'];
+
+    $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
 
