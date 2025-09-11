@@ -15,10 +15,24 @@ function getJoke($pdo, $id) {
     return $stmt->fetch();
 }
 
-function insertJoke($pdo, $joketext, $authorid) {
-    $stmt = $pdo->prepare('INSERT INTO `joke` (`joketext`, `jokedate`, `authorid`) VALUES (:joketext, :jokedate, :authorid)');
-    $values = [':joketext' => $joketext, ':authorid' => $authorid, ':jokedate' => date('Y-m-d')];
+function insertJoke($pdo, $values) {
+    $query = 'INSERT INTO `joke` (';
 
+    foreach ($values as $key => $value) {
+        $query .= '`' . $key . '`,'; // INSERT INTO `joke` (`authorid`, `jokedate`, `joketext`,
+    }
+    $query = rtrim($query, ','); // INSERT INTO `joke` (`authorid`, `jokedate`, `joketext`
+
+    $query .= ') VALUES ('; // INSERT INTO `joke` (`authorid`, `jokedate`, `joketext`) VALUES (
+
+    foreach ($values as $key => $value) {
+        $query .= ':' . $key . ','; // INSERT INTO `joke` (`authorid`, `jokedate`, `joketext`) VALUES (:authorid, :jokedate, :joketext,
+    }
+    $query = rtrim($query, ','); // INSERT INTO `joke` (`authorid`, `jokedate`, `joketext`) VALUES (:authorid, :jokedate, :joketext
+
+    $query .= ')';
+
+    $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
 
