@@ -115,7 +115,7 @@ function findAll($pdo, $table) {
     return $stmt->fetchAll();
 }
 
-function insert($pdo, $values, $table) {
+function insert($pdo, $table, $values) {
     $query = 'INSERT INTO `' . $table . '` (';
 
     foreach ($values as $key => $value) {
