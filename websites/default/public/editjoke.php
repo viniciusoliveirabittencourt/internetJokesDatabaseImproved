@@ -4,11 +4,12 @@ try {
     include __DIR__ . '/../includes/DatabaseFunctions.php';
 
     if (isset($_POST['joketext'])) {
-        updateJoke($pdo, ['id' => $_POST['jokeid'], 'joketext' => $_POST['joketext'], 'authorid' => 1]);
+        $updateValues = ['id' => $_POST['jokeid'], 'joketext' => $_POST['joketext'], 'authorid' => 1];
+        update($pdo, 'joke', 'id', $updateValues);
 
         header('location: jokes.php');
     } else {
-        $joke = getJoke($pdo, $_GET['id']);
+        $joke = find($pdo, 'joke', 'id', $_GET['id'])[0];
         $title = 'Edit joke';
 
         ob_start();
