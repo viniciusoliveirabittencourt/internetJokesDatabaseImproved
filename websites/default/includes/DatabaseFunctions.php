@@ -62,15 +62,10 @@ function deleteJoke($pdo, $id) {
     $stmt->execute([':id' => $id]);
 }
 
-function allJokes($pdo) {
-    $stmt = $pdo->prepare('SELECT `joke`.`id`, `joketext`, `jokedate`, `name`, `email` FROM `joke` INNER JOIN `author` ON `authorid` = `author`.`id`;');
+function findAll($pdo, $table) {
+    $stmt = $pdo->prepare('SELECT * FROM `' . $table . '`');
     $stmt->execute();
-    return $stmt->fetchAll();
-}
 
-function allAuthors($pdo) {
-    $stmt = $pdo->prepare('SELECT * FROM `author`');
-    $stmt->execute();
     return $stmt->fetchAll();
 }
 
@@ -97,7 +92,7 @@ function insertAuthor($pdo, $values) {
     $query = rtrim($query, ',');
 
     $query .= ')';
-    
+
     $stmt = $pdo->prepare($query);
     $stmt->execute($values);
 }
