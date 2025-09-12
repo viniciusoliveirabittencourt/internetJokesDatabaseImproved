@@ -9,7 +9,12 @@ try {
 
         header('location: jokes.php');
     } else {
-        $joke = find($pdo, 'joke', 'id', $_GET['id'])[0];
+        if (isset($_GET['id'])) {
+            $joke = find($pdo, 'joke', 'id', $_GET['id'])[0];
+        } else {
+            $joke = null;
+        }
+
         $title = 'Edit joke';
 
         ob_start();
