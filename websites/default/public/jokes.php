@@ -4,7 +4,7 @@ try {
     include __DIR__ . '/../includes/DatabaseFunctions.php';
 
     $title = 'Joke List';
-    $totalJokes = totaljokes($pdo);
+    $totalJokes = totaljokes($pdo); // I will not refactor this function because of N+1 problem
     $jokes = allJokes($pdo);
 
     ob_start();
