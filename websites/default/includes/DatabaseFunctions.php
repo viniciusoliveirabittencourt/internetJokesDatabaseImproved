@@ -60,3 +60,14 @@ function total($pdo, $table) {
     $row = $stmt->fetch();
     return $row[0];
 }
+
+function save($pdo, $table, $primarykey, $record) {
+    try {
+        if (empty($record[$primarykey])) {
+            unset($record[$primarykey]);
+        }
+        insert($pdo, $table, $record);
+    } catch (PDOException $e) {
+        update($pdo, $table, $primarykey, $record);
+    }
+}

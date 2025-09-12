@@ -5,14 +5,12 @@ try {
 
     if (isset($_POST['joketext'])) {
         $updateValues = ['id' => $_POST['jokeid'], 'joketext' => $_POST['joketext'], 'authorid' => 1];
-        update($pdo, 'joke', 'id', $updateValues);
+        save($pdo, 'joke', 'id', $updateValues);
 
         header('location: jokes.php');
     } else {
         if (isset($_GET['id'])) {
-            $joke = find($pdo, 'joke', 'id', $_GET['id'])[0];
-        } else {
-            $joke = null;
+            $joke = find($pdo, 'joke', 'id', $_GET['id'])[0] ?? null;
         }
 
         $title = 'Edit joke';
