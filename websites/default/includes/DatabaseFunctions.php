@@ -55,7 +55,7 @@ function find($pdo, $table, $field, $value) {
 }
 
 function total($pdo, $table) {
-    $stmt = $pdo->prepate('SELECT COUNT(*) FROM `' . $table . '`');
+    $stmt = $pdo->prepare('SELECT COUNT(*) FROM `' . $table . '`');
     $stmt->execute();
     $row = $stmt->fetch();
     return $row[0];
