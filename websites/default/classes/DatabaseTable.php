@@ -1,5 +1,14 @@
 <?php
 class DatabaseTable {
+    private function processesDates($values) {
+        foreach ($values as $key => $value) {
+            if ($value instanceof DateTime) {
+                $values[$key] = $value->format('Y-m-d');
+            }
+        }
+
+        return $values;
+}
     public function total($pdo, $table) {
         $stmt = $pdo->prepare('SELECT COUNT(*) FROM `' . $table . '`');
         $stmt->execute();
@@ -20,9 +29,6 @@ class DatabaseTable {
         $query = 'INSERT INTO `' . $table . '` (';
 
         foreach ($values as $key => $value) {
-            if ($value instanceof DateTime) {
-                $values[$key] = $value->format('Y-m-d');
-            }
             $query .= '`' . $key . '`,';
         }
         $query = rtrim($query, ',');
@@ -36,6 +42,8 @@ class DatabaseTable {
         $query = rtrim($query, ',');
 
         $query .= ')';
+
+        $values = $this->processesDates($values);
 
         $stmt = $pdo->prepare($query);
         $stmt->execute($values);
@@ -54,6 +62,8 @@ class DatabaseTable {
         $query .= implode(', ', $updateFields);
         $query .= ' WHERE `' . $primarykey . '` = :primarykey';
         $values['primarykey'] = $values['id'];
+
+        $values = $this->processesDates($values);
 
         $stmt = $pdo->prepare($query);
         $stmt->execute($values);
