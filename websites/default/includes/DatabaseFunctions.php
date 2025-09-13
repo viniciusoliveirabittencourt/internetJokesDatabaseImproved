@@ -9,6 +9,9 @@ function insert($pdo, $table, $values) {
     $query = 'INSERT INTO `' . $table . '` (';
 
     foreach ($values as $key => $value) {
+        if ($value instanceof DateTime) {
+            $values[$key] = $value->format('Y-m-d');
+        }
         $query .= '`' . $key . '`,';
     }
     $query = rtrim($query, ',');
