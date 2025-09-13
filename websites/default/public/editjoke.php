@@ -3,8 +3,8 @@ try {
     include __DIR__ . '/../includes/DatabaseConnection.php';
     include __DIR__ . '/../includes/DatabaseFunctions.php';
 
-    if (isset($_POST['joketext'])) {
-        $updateValues = $_POST;
+    if (isset($_POST['joke'])) {
+        $updateValues = $_POST['joke'];
         $updateValues['authorid'] = 1;
         $updateValues['jokedate'] = new DateTime();
 
