@@ -1,4 +1,9 @@
 <?php
+function delete($pdo, $table, $field, $value) {
+    $stmt = $pdo->prepare('DELETE FROM `' . $table . '` WHERE `' . $field . '` = :value');
+    $stmt->execute(['value' => $value]);
+}
+
 function allJokes($pdo) {
     $stmt = $pdo->prepare('SELECT `joke`.`id`, `joketext`, `jokedate`, `name`, `email` FROM `joke` INNER JOIN `author` ON `authorid` = `author`.`id`;');
     $stmt->execute();

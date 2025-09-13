@@ -4,8 +4,10 @@ try {
     include __DIR__ . '/../includes/DatabaseFunctions.php';
 
     if (isset($_POST['joketext'])) {
-        $updateValues = ['id' => $_POST['jokeid'], 'joketext' => $_POST['joketext'], 'authorid' => 1, 'jokedate' => New DateTime()];
-        // insert($pdo, 'joke', $updateValues);
+        $updateValues = $_POST;
+        $updateValues['authorid'] = 1;
+        $updateValues['jokedate'] = new DateTime();
+
         save($pdo, 'joke', 'id', $updateValues);
 
         header('location: jokes.php');
